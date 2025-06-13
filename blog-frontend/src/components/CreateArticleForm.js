@@ -1,31 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function CreateArticleForm({ onArticleCreated }) {
+function CreateArticleForm({ onArticleSaved, editingArticle }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post('http://localhost:3000/api/articles', {
-        title,
-        content,
-        author
-      });
+
+  useEffect(() => {
+    if (editingArticle) {
+      setTitle(editingArticle.title);
+      setContent(editingArticle.content);
+      setAuthor(editingArticle.author);
+    } else {
       setTitle('');
       setContent('');
       setAuthor('');
-      onArticleCreated(); // Refresh the list ✅
+    }
+  }, [editingArticle]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingArticle) {
+        // Update existing article
+        await axios.put(`http://localhost:3000/api/articles/${editingArticle._id}`, {
+          title,
+          content,
+          author
+        });
+      } else {
+        // Create new article
+        await axios.post('http://localhost:3000/api/articles', {
+          title,
+          content,
+          author
+        });
+      }
+
+      setTitle('');
+      setContent('');
+      setAuthor('');
+      onArticleSaved(); // Refresh list
     } catch (err) {
-      console.error('Error creating article:', err);
+      console.error('Error saving article:', err);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
-      <h2>Create Article</h2>
+    <form onSubmit={handleSubmit}>
+      <h2>{editingArticle ? 'Edit Article' : 'Create Article'}</h2>
       <input
         type="text"
         placeholder="Title"
@@ -46,7 +70,7 @@ function CreateArticleForm({ onArticleCreated }) {
         onChange={e => setAuthor(e.target.value)}
         required
       /><br /><br />
-      <button type="submit">Add Article</button>
+      <button type="submit">{editingArticle ? 'Update Article' : 'Add Article'}</button>
     </form>
   );
 }

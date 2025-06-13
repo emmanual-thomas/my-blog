@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function ArticlesList({ refresh }) {
+function ArticlesList({ refresh, onEdit }) {
   const [articles, setArticles] = useState([]);
 
   const fetchArticles = async () => {
@@ -9,7 +9,7 @@ function ArticlesList({ refresh }) {
       const res = await axios.get('http://localhost:3000/api/articles');
       setArticles(res.data);
     } catch (err) {
-      console.error('Error fetching:', err);
+      console.error('Error fetching articles:', err);
     }
   };
 
@@ -25,6 +25,7 @@ function ArticlesList({ refresh }) {
           <h3>{article.title}</h3>
           <p>{article.content}</p>
           <p><strong>Author:</strong> {article.author}</p>
+          <button onClick={() => onEdit(article)}>Edit</button>
         </div>
       ))}
     </div>

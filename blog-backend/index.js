@@ -44,6 +44,26 @@ app.post('/api/articles', async (req, res) => {
   }
 });
 
+app.put('/api/articles/:id', async (req, res) => {
+  try {
+    const updated = await Article.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ message: 'Update failed' });
+  }
+});
+
+// Partial update (PATCH)
+app.patch('/api/articles/:id', async (req, res) => {
+  try {
+    const updated = await Article.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ message: 'Patch update failed' });
+  }
+});
+
+
 // Start server
 app.listen(3000, () => {
   console.log('🚀 Backend running on http://localhost:3000');
