@@ -33,6 +33,17 @@ app.get('/api/articles', async (req, res) => {
   }
 });
 
+
+app.post('/api/articles', async (req, res) => {
+  try {
+    const newArticle = new Article(req.body);
+    await newArticle.save();
+    res.status(201).json(newArticle);
+  } catch (err) {
+    res.status(400).json({ message: 'Error saving article' });
+  }
+});
+
 // Start server
 app.listen(3000, () => {
   console.log('🚀 Backend running on http://localhost:3000');
