@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+# Blog CMS (Mini Content Management System)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple full-stack blog application with **React** frontend and **Express + MongoDB** backend. It allows users to **create, view, edit, and delete** articles. The application uses **Bootstrap** for styling and includes **basic HTTP authentication** for secure access to API routes.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🛠️ Project Setup
 
-### `npm start`
+### 🔧 Backend Setup (blog-backend)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Built with: Node.js, Express, MongoDB (via Mongoose)
+- Features: REST API for Articles with Basic Authentication
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Install Dependencies
 
-### `npm test`
+```bash
+cd blog-backend
+npm install
+Run the Backend Server
+bash
+Copy
+Edit
+node index.js
+Backend will run at:
+📍 http://localhost:3000
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🎨 Frontend Setup (blog-frontend)
+Built with: React
 
-### `npm run build`
+Features: CRUD UI, Bootstrap UI, Axios calls to secured API
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Runs on: Port 3001 by default
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Install Dependencies
+bash
+Copy
+Edit
+cd blog-frontend
+npm install
+Set Custom Port (Optional)
+Create a file named .env in blog-frontend/ and add:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+env
+Copy
+Edit
+PORT=3001
+Run the React App
+bash
+Copy
+Edit
+npm start
+Frontend will run at:
+📍 http://localhost:3001
 
-### `npm run eject`
+🔐 Basic Authentication
+All backend API routes are protected with Basic Auth.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Username	Password
+admin	admin123
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Axios requests from frontend include these credentials automatically.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+📦 Available Scripts (Frontend)
+In the blog-frontend directory, you can run:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+npm start
+Runs the app in development mode.
+Open http://localhost:3001 in your browser.
 
-## Learn More
+npm run build
+Builds the app for production to the build folder.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+npm test
+Launches the test runner in interactive watch mode.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+🧪 API Endpoints (Backend)
+All endpoints require basic auth.
 
-### Code Splitting
+Method	Endpoint	Description
+GET	/api/articles	Fetch all articles
+POST	/api/articles	Create a new article
+PUT	/api/articles/:id	Update an article
+DELETE	/api/articles/:id	Delete an article
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+✨ Features
+✅ Full CRUD for blog articles
+✅ MongoDB integration with Mongoose
+✅ Axios communication between frontend and backend
+✅ Bootstrap 5 UI for forms and lists
+✅ Basic HTTP Authentication
+✅ Custom port configuration via .env
 
-### Analyzing the Bundle Size
+🧠 Learn More
+React Documentation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Express Documentation
 
-### Making a Progressive Web App
+MongoDB Docs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Bootstrap Docs
 
-### Advanced Configuration
+Basic Auth in Express
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+🚀 Future Improvements
+JWT-based Authentication
 
-### Deployment
+User accounts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Markdown editor for articles
 
-### `npm run build` fails to minify
+Pagination and search
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+💻 Screenshots
+(Add your screenshots here showing the UI for creating/editing/deleting articles)
+
+👨‍💻 Developed By
+Emmanual Thomas
+React + Express Fullstack Mini CMS Project

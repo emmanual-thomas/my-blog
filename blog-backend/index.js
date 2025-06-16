@@ -1,23 +1,23 @@
-const express = require('express');
-const mongoose = require('mongoose');
+const exp = require('express');
+const mong = require('mongoose');
 const cors = require('cors');
-const Article = require('./models/Article');
+const art = require('./models/Article');
 
-const app = express();
+const app = exp();
 
 app.use(cors());
-app.use(express.json());
+app.use(exp.json());
 
-mongoose.connect('mongodb+srv://admin:admin123@cluster0.g2hsgxl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+mong.connect('mongodb+srv://admin:admin123@cluster0.g2hsgxl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-  .then(() => console.log('✅ MongoDB connected!'))
-  .catch(err => console.error('❌ MongoDB connection error:', err));
+  .then(() => console.log('MongoDB connected!'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 app.get('/api/articles', async (req, res) => {
   try {
-    const articles = await Article.find();
+    const articles = await art.find();
     res.json(articles);
   } catch (err) {
     console.error('Error fetching articles:', err);
@@ -27,7 +27,7 @@ app.get('/api/articles', async (req, res) => {
 
 app.post('/api/articles', async (req, res) => {
   try {
-    const newArticle = new Article(req.body);
+    const newArticle = new art(req.body);
     await newArticle.save();
     res.status(201).json(newArticle);
   } catch (err) {
@@ -41,7 +41,7 @@ app.post('/api/articles', async (req, res) => {
 
 app.put('/api/articles/:id', async (req, res) => {
   try {
-    const updated = await Article.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updated = await art.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updated);
   } catch (err) {
     res.status(400).json({ error: 'Failed to update article' });
@@ -50,7 +50,7 @@ app.put('/api/articles/:id', async (req, res) => {
 
 app.patch('/api/articles/:id', async (req, res) => {
   try {
-    const updated = await Article.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
+    const updated = await art.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
     res.json(updated);
   } catch (err) {
     res.status(400).json({ error: 'Failed to patch article' });
@@ -59,7 +59,7 @@ app.patch('/api/articles/:id', async (req, res) => {
 
 app.delete('/api/articles/:id', async (req, res) => {
   try {
-    await Article.findByIdAndDelete(req.params.id);
+    await art.findByIdAndDelete(req.params.id);
     res.json({ message: 'Article deleted' });
   } catch (err) {
     res.status(400).json({ error: 'Failed to delete article' });
@@ -67,10 +67,10 @@ app.delete('/api/articles/:id', async (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('🚀 Server running at http://localhost:3000');
+  console.log('Server running at http://localhost:3000');
 });
 
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err.stack);
-  res.status(500).json({ error: 'Something went wrong!' });
+  res.status(500).json({ error: 'Something went wrong' });
 });

@@ -20,7 +20,7 @@ function ArticlesList({ refresh, onEdit, onDelete }) {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:3000/api/articles/${id}`);
-      onDelete(); // Refresh
+      onDelete();
     } catch (err) {
       console.error('Error deleting article:', err);
     }

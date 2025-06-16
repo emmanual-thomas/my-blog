@@ -22,13 +22,11 @@ function CreateArticleForm({ onArticleSaved, editingArticle }) {
     e.preventDefault();
     try {
       if (editingArticle) {
-        // Update existing article
         await axios.put(
           `http://localhost:3000/api/articles/${editingArticle._id}`,
           { title, content, author }
         );
       } else {
-        // Create new article
         await axios.post(
           'http://localhost:3000/api/articles',
           { title, content, author }
@@ -38,7 +36,7 @@ function CreateArticleForm({ onArticleSaved, editingArticle }) {
       setTitle('');
       setContent('');
       setAuthor('');
-      onArticleSaved(); // Refresh list
+      onArticleSaved();
     } catch (err) {
       console.error('Error saving article:', err);
     }
