@@ -8,11 +8,15 @@ function App() {
 
   const handleArticleSaved = () => {
     setRefresh(prev => prev + 1);
-    setEditingArticle(null); // Clear edit form
+    setEditingArticle(null);
   };
 
   const handleEdit = (article) => {
     setEditingArticle(article);
+  };
+
+  const handleDelete = () => {
+    setRefresh(prev => prev + 1);
   };
 
   return (
@@ -22,7 +26,11 @@ function App() {
         onArticleSaved={handleArticleSaved}
         editingArticle={editingArticle}
       />
-      <ArticlesList refresh={refresh} onEdit={handleEdit} />
+      <ArticlesList
+        refresh={refresh}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }
