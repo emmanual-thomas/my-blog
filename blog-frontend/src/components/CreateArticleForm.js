@@ -19,39 +19,30 @@ function CreateArticleForm({ onArticleSaved, editingArticle }) {
   }, [editingArticle]);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const credentials = {
-      auth: {
-        username: 'admin',
-        password: 'admin123'
+    e.preventDefault();
+    try {
+      if (editingArticle) {
+        // Update existing article
+        await axios.put(
+          `http://localhost:3000/api/articles/${editingArticle._id}`,
+          { title, content, author }
+        );
+      } else {
+        // Create new article
+        await axios.post(
+          'http://localhost:3000/api/articles',
+          { title, content, author }
+        );
       }
-    };
 
-    if (editingArticle) {
-      // Update existing article
-      await axios.put(
-        `http://localhost:3000/api/articles/${editingArticle._id}`,
-        { title, content, author },
-        credentials
-      );
-    } else {
-      // Create new article
-      await axios.post(
-        'http://localhost:3000/api/articles',
-        { title, content, author },
-        credentials
-      );
+      setTitle('');
+      setContent('');
+      setAuthor('');
+      onArticleSaved(); // Refresh list
+    } catch (err) {
+      console.error('Error saving article:', err);
     }
-
-    setTitle('');
-    setContent('');
-    setAuthor('');
-    onArticleSaved(); // Refresh list
-  } catch (err) {
-    console.error('Error saving article:', err);
-  }
-};
+  };
 
   return (
     <div className="container mt-4">

@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mong = require('mongoose');
 
-const articleSchema = new mongoose.Schema({
+const articleschem = new mong.Schema({
   title: String,
   content: String,
   author: String,
   date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Article', articleSchema);
+module.exports = mong.model('Article', articleschem);

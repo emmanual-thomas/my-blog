@@ -5,38 +5,26 @@ function ArticlesList({ refresh, onEdit, onDelete }) {
   const [articles, setArticles] = useState([]);
 
   const fetchArticles = async () => {
-  try {
-    const res = await axios.get('http://localhost:3000/api/articles', {
-      auth: {
-        username: 'admin',
-        password: 'admin123'
-      }
-    });
-    setArticles(res.data);
-  } catch (err) {
-    console.error('Error fetching articles:', err);
-  }
-};
-
+    try {
+      const res = await axios.get('http://localhost:3000/api/articles');
+      setArticles(res.data);
+    } catch (err) {
+      console.error('Error fetching articles:', err);
+    }
+  };
 
   useEffect(() => {
     fetchArticles();
   }, [refresh]);
 
   const handleDelete = async (id) => {
-  try {
-    await axios.delete(`http://localhost:3000/api/articles/${id}`, {
-      auth: {
-        username: 'admin',
-        password: 'admin123'
-      }
-    });
-    onDelete(); // Refresh
-  } catch (err) {
-    console.error('Error deleting article:', err);
-  }
-};
-
+    try {
+      await axios.delete(`http://localhost:3000/api/articles/${id}`);
+      onDelete(); // Refresh
+    } catch (err) {
+      console.error('Error deleting article:', err);
+    }
+  };
 
   return (
     <div className="container mt-5">
